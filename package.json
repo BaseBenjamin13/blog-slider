@@ -31,6 +31,6 @@
     "react-tabs": "^6.0.2"
   },
   "files": [
-    "src/styles/*.css"
+    "/**"
     ]
 }
