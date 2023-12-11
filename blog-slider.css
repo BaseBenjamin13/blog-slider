@@ -1,9 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .blogContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: #B4B4B4;
-    /* background-color: var(--myGray); */
+    /* background-color:red; */
     width: 80vw;
     border-radius: 50px;
     margin: 0 auto;
@@ -121,7 +124,7 @@
     background: #fff;
     /* border-color: #aaa; */
     font-size: 120%;
-    color: #38A169;
+    /* color: #38A169; */
     font-weight: bold;
     border-radius: 5px 5px 0 0;
 }
@@ -135,5 +138,5 @@
     left: -4px;
     right: -4px;
     bottom: -5px;
-    background: #38A169;
+    /* background: #38A169; */
 }
