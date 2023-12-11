@@ -22,10 +22,16 @@ function BlogSlider(props) {
     _useState2 = _slicedToArray(_useState, 2),
     blogIndex = _useState2[0],
     setBlogIndex = _useState2[1];
-  var _useState3 = (0, _react.useState)("blogContentShowFromRight"),
+  var _useState3 = (0, _react.useState)(0),
     _useState4 = _slicedToArray(_useState3, 2),
-    blogClass = _useState4[0],
-    setBlogClass = _useState4[1];
+    tabIndex = _useState4[0],
+    setTabIndex = _useState4[1];
+  var _useState5 = (0, _react.useState)("blogContentShowFromRight"),
+    _useState6 = _slicedToArray(_useState5, 2),
+    blogClass = _useState6[0],
+    setBlogClass = _useState6[1];
+  var color = props.color ? props.color : 'black';
+  var selectedColor = props.selectedColor ? props.selectedColor : props.color ? props.color : 'black';
   var handleChangeBlogIndex = function handleChangeBlogIndex(num, index) {
     if (num === 1 && blogIndex < props.blogContent[index].blogs.length - 1 || num === -1 && blogIndex >= 1) {
       if (num === -1) setBlogClass("blogContentHideToRight");
@@ -39,14 +45,24 @@ function BlogSlider(props) {
     }
   };
   return props.blogContent && /*#__PURE__*/_react["default"].createElement("div", {
-    className: "blogContainer"
+    className: "blogContainer",
+    style: {
+      backgroundColor: props.backgroundColor ? props.backgroundColor : '#B4B4B4',
+      color: color
+    }
   }, /*#__PURE__*/_react["default"].createElement("h1", null, "Main Blog"), /*#__PURE__*/_react["default"].createElement(_reactTabs.Tabs, {
     onSelect: function onSelect() {
       return setBlogIndex(0);
     }
   }, /*#__PURE__*/_react["default"].createElement(_reactTabs.TabList, null, props.showCategorys ? props.blogContent.map(function (item, index) {
     return /*#__PURE__*/_react["default"].createElement(_reactTabs.Tab, {
-      key: index
+      key: index,
+      style: index == tabIndex ? {
+        color: selectedColor
+      } : null,
+      onClick: function onClick() {
+        return setTabIndex(index);
+      }
     }, item.category);
   }) : /*#__PURE__*/_react["default"].createElement(_reactTabs.Tab, null, "General")), props.blogContent.map(function (item, index) {
     return /*#__PURE__*/_react["default"].createElement(_reactTabs.TabPanel, {
@@ -63,11 +79,17 @@ function BlogSlider(props) {
       className: "blogBackBtn",
       onClick: function onClick() {
         return handleChangeBlogIndex(-1, index);
+      },
+      style: {
+        color: color
       }
     }, "Back"), /*#__PURE__*/_react["default"].createElement("button", {
       className: "blogNextBtn",
       onClick: function onClick() {
         return handleChangeBlogIndex(1, index);
+      },
+      style: {
+        color: color
       }
     }, "Next"))));
   })));
