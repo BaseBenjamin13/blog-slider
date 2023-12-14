@@ -32,6 +32,18 @@ function BlogSlider(props) {
     setBlogClass = _useState6[1];
   var color = props.color ? props.color : 'black';
   var selectedColor = props.selectedColor ? props.selectedColor : props.color ? props.color : 'black';
+  var btnBackgroundColor = props.btnBackgroundColor ? props.btnBackgroundColor : 'white';
+  var btnStyle = {
+    width: '50%',
+    color: color,
+    backgroundColor: btnBackgroundColor,
+    borderRadius: '20px',
+    padding: '5px',
+    paddingLeft: '15px',
+    paddingRight: '15px',
+    // maxWidth: '4rem',
+    border: '1px solid black'
+  };
   var handleChangeBlogIndex = function handleChangeBlogIndex(num, index) {
     if (num === 1 && blogIndex < props.blogContent[index].blogs.length - 1 || num === -1 && blogIndex >= 1) {
       if (num === -1) setBlogClass("blogContentHideToRight");
@@ -50,7 +62,7 @@ function BlogSlider(props) {
       backgroundColor: props.backgroundColor ? props.backgroundColor : '#B4B4B4',
       color: color
     }
-  }, /*#__PURE__*/_react["default"].createElement("h1", null, "Main Blog"), /*#__PURE__*/_react["default"].createElement(_reactTabs.Tabs, {
+  }, props.title && /*#__PURE__*/_react["default"].createElement("h1", null, props.title), /*#__PURE__*/_react["default"].createElement(_reactTabs.Tabs, {
     onSelect: function onSelect() {
       return setBlogIndex(0);
     }
@@ -58,7 +70,8 @@ function BlogSlider(props) {
     return /*#__PURE__*/_react["default"].createElement(_reactTabs.Tab, {
       key: index,
       style: index == tabIndex ? {
-        color: selectedColor
+        color: selectedColor,
+        backgroundColor: btnBackgroundColor
       } : null,
       onClick: function onClick() {
         return setTabIndex(index);
@@ -75,22 +88,18 @@ function BlogSlider(props) {
       className: "blogTitle"
     }, item.blogs[blogIndex].title), item.blogs[blogIndex].content)), /*#__PURE__*/_react["default"].createElement("div", {
       className: "blogNavContainer"
-    }, /*#__PURE__*/_react["default"].createElement("button", {
-      className: "blogBackBtn",
+    }, /*#__PURE__*/_react["default"].createElement("div", {
       onClick: function onClick() {
         return handleChangeBlogIndex(-1, index);
       },
-      style: {
-        color: color
-      }
-    }, "Back"), /*#__PURE__*/_react["default"].createElement("button", {
+      className: "blogBackBtn",
+      style: btnStyle
+    }, /*#__PURE__*/_react["default"].createElement("h1", null, "Back")), /*#__PURE__*/_react["default"].createElement("div", {
       className: "blogNextBtn",
       onClick: function onClick() {
         return handleChangeBlogIndex(1, index);
       },
-      style: {
-        color: color
-      }
-    }, "Next"))));
+      style: btnStyle
+    }, /*#__PURE__*/_react["default"].createElement("h1", null, "Next")))));
   })));
 }

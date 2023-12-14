@@ -48,12 +48,27 @@
     animation: hideToLeft 600ms 1;
 }
 
+.blogNavContainer {
+    display:inline-flex;
+}
+
 .blogBackBtn,
 .blogNextBtn {
     margin: 5px;
     margin-left: 10px;
     margin-right: 10px;
-    font-size: 140%;
+    font-size: 80%;
+    box-shadow: 0 4px 4px 1px rgba(37, 39, 40, 0.3), 0 8px 10px 6px rgba(30, 32, 33, 0.15);
+
+}
+
+.blogBackBtn:hover,
+.blogNextBtn:hover { 
+    opacity: 0.8;
+}
+.blogBackBtn:active,
+.blogNextBtn:active {
+    opacity: 0.6;
 }
 
 
