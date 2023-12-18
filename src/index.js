@@ -13,7 +13,7 @@ export default function BlogSlider(props) {
     const btnBackgroundColor = props.btnBackgroundColor ? props.btnBackgroundColor : 'white';
 
     const btnStyle = {
-        width : '50%',
+        width: '50%',
         color: color,
         backgroundColor: btnBackgroundColor,
         borderRadius: '20px',
@@ -74,7 +74,10 @@ export default function BlogSlider(props) {
                                 <div className="blogContentContainer">
                                     <div>
                                         <p className={blogClass}>
-                                            <span className="blogTitle">{item.blogs[blogIndex].title}</span>
+
+                                            {item.blogs[blogIndex].title &&
+                                                <span className="blogTitle">{item.blogs[blogIndex].title}</span>
+                                            }
                                             {item.blogs[blogIndex].content}
                                         </p>
                                     </div>
@@ -89,8 +92,8 @@ export default function BlogSlider(props) {
                                         <div
                                             className="blogNextBtn"
                                             onClick={() => handleChangeBlogIndex(1, index)}
-                                                style={btnStyle}
-                                            >
+                                            style={btnStyle}
+                                        >
                                             <h1>Next</h1>
                                         </div>
                                     </div>
@@ -100,6 +103,6 @@ export default function BlogSlider(props) {
                     })
                 }
             </Tabs>
-        </div>
+        </div >
     )
 }
