@@ -1,32 +1,33 @@
 import React, { useState } from 'react';
-// import '../blog-slider.css';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-// import 'react-tabs/style/react-tabs.css';
 
 export default function BlogSlider(props) {
 
     const [blogIndex, setBlogIndex] = useState(0)
     const [tabIndex, setTabIndex] = useState(0)
+    const [selectedCategory, setSelectedCategory] = useState(0)
     const [blogClass, setBlogClass] = useState("blogContentShowFromRight")
+
+
+    const selectedCategoryColor = props.selectedCategoryColor ? props.selectedCategoryColor : 'white'
+    const categoryColor = props.categoryColor ? props.categoryColor : 'black'
+
     const color = props.color ? props.color : 'black'
-    const selectedColor = props.selectedColor ? props.selectedColor : props.color ? props.color : 'black'
-    const btnBackgroundColor = props.btnBackgroundColor ? props.btnBackgroundColor : 'white';
+    const backgroundColor = props.backgroundColor ? props.backgroundColor : '#F2F2F2';
+    const btnBackgroundColor = props.btnBackgroundColor ? props.btnBackgroundColor : '#3D9DD9';
 
     const btnStyle = {
         width: '50%',
-        color: color,
+        color: '#F2F2F2',
         backgroundColor: btnBackgroundColor,
         borderRadius: '20px',
         padding: '5px',
         paddingLeft: '15px',
         paddingRight: '15px',
-        // maxWidth: '4rem',
-        border: '1px solid black',
     }
 
 
-    const handleChangeBlogIndex = (num, index) => {
-        if (num === 1 && blogIndex < props.blogContent[index].blogs.length - 1 || num === -1 && blogIndex >= 1) {
+    const handleChangeBlogIndex = (num) => {
+        if (num === 1 && blogIndex < props.blogContent[selectedCategory].blogs.length - 1 || num === -1 && blogIndex >= 1) {
             if (num === -1) setBlogClass("blogContentHideToRight")
             if (num === 1) setBlogClass("blogContentHideToLeft")
             const changeIndex = () => {
@@ -43,66 +44,68 @@ export default function BlogSlider(props) {
         <div
             className="blogContainer"
             style={{
-                backgroundColor: props.backgroundColor ? props.backgroundColor : '#B4B4B4',
+                backgroundColor: backgroundColor,
                 color: color,
             }}
         >
             {props.title && <h1>{props.title}</h1>}
-            <Tabs onSelect={() => setBlogIndex(0)}>
-                <TabList>
-                    {
-                        props.showCategorys ?
-                            props.blogContent.map((item, index) => {
-                                return <Tab
-                                    key={index}
-                                    style={
-                                        index == tabIndex ?
-                                            { color: selectedColor, backgroundColor: btnBackgroundColor }
-                                            : null
-                                    }
-                                    onClick={() => setTabIndex(index)}
-                                >{item.category}</Tab>
-                            })
-                            : <Tab>General</Tab>
-                    }
-                </TabList>
 
+            <div className="categorysContainer">
                 {
-                    props.blogContent.map((item, index) => {
-                        return (
-                            <TabPanel key={index}>
-                                <div className="blogContentContainer">
-                                    <div>
-                                        <p className={blogClass}>
-
-                                            {item.blogs[blogIndex].title &&
-                                                <span className="blogTitle">{item.blogs[blogIndex].title}</span>
-                                            }
-                                            {item.blogs[blogIndex].content}
-                                        </p>
-                                    </div>
-                                    <div className="blogNavContainer">
-                                        <div
-                                            onClick={() => handleChangeBlogIndex(-1, index)}
-                                            className="blogBackBtn"
-                                            style={btnStyle}
-                                        >
-                                            <h1>Back</h1>
-                                        </div>
-                                        <div
-                                            className="blogNextBtn"
-                                            onClick={() => handleChangeBlogIndex(1, index)}
-                                            style={btnStyle}
-                                        >
-                                            <h1>Next</h1>
-                                        </div>
-                                    </div>
+                    props.showCategorys ?
+                        props.blogContent.map((item, index) => {
+                            return (
+                                <div
+                                    className="categoryContainer"
+                                    key={index}
+                                    onClick={() => {
+                                        setSelectedCategory(index)
+                                        setBlogIndex(0)
+                                    }}
+                                    style={{
+                                        backgroundColor: index == selectedCategory ? btnBackgroundColor : null
+                                    }}
+                                >
+                                    <h2
+                                        style={{
+                                            color: index === selectedCategory ? selectedCategoryColor : categoryColor
+                                        }}
+                                    >{item.category}</h2>
                                 </div>
-                            </TabPanel>
-                        )
-                    })
+                            )
+                        })
+                        : null
                 }
-            </Tabs>
+            </div>
+
+            <div className="blogContentContainer">
+                <div className="blogTextContainer">
+                    <p className={blogClass}>
+
+                        {props.blogContent[selectedCategory].blogs[blogIndex].title &&
+                            <span className="blogTitle">{props.blogContent[selectedCategory].blogs[blogIndex].title}</span>
+                        }
+                        {props.blogContent[selectedCategory].blogs[blogIndex].content}
+                    </p>
+                </div>
+                <div className="blogNavContainer">
+                    <div
+                        onClick={() => handleChangeBlogIndex(-1)}
+                        className="blogBackBtn"
+                        style={btnStyle}
+                    >
+                        <h1>Back</h1>
+                    </div>
+                    <div
+                        className="blogNextBtn"
+                        onClick={() => handleChangeBlogIndex(1)}
+                        style={btnStyle}
+                    >
+                        <h1>Next</h1>
+                    </div>
+                </div>
+            </div>
+
         </div >
     )
 }
